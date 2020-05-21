@@ -1,12 +1,12 @@
 # Set strings for database connections
-dbstring = "host=localhost dbname=sparkifydb user=ericr password=test123"
-dbstring_default = "host=localhost dbname=postgres user=ericr password=test123"
-#dbstring = "host=127.0.0.1 dbname=sparkifydb user=student password=student"
-#dbstring_default = "host=127.0.0.1 dbname=studentdb user=student password=student"
+#dbstring = "host=localhost dbname=sparkifydb user=ericr password=test123"
+#dbstring_default = "host=localhost dbname=postgres user=ericr password=test123"
+dbstring = "host=127.0.0.1 dbname=sparkifydb user=student password=student" # for Udacity server
+dbstring_default = "host=127.0.0.1 dbname=studentdb user=student password=student" # for Udacity server
 
 # Set data paths for efficient loading using COPY
-datapath = r'C:/Users/ericr/Google Drive/Online Courses/Udacity/Data Engineering/Part 1 - Data Modeling/Project - Data Modeling with Postgres/data'
-#datapath = "data"
+#datapath = r'C:/Users/ericr/Google Drive/Online Courses/Udacity/Data Engineering/Part 1 - Data Modeling/data-modeling-postgres/data'
+datapath = "data" # for Udacity server
 
 # DROP TABLES
 

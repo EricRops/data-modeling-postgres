@@ -1,3 +1,4 @@
+import os
 import psycopg2
 from sql_queries import create_table_queries, drop_table_queries, dbstring, dbstring_default
 
@@ -11,7 +12,7 @@ def create_database():
     # connect to default database
     # NOTE: created project with a local Postgres session.
     # Reviewers please ensure the dbstring in sql_queries is correct
-    conn = psycopg2.connect(dbstring_default) # dbstring set in sql_queries
+    conn = psycopg2.connect(dbstring_default) # dbstring set in sql_queries.py
     conn.set_session(autocommit=True)
     cur = conn.cursor()
     
@@ -23,7 +24,7 @@ def create_database():
     conn.close()    
     
     # connect to sparkify database
-    conn = psycopg2.connect(dbstring) # dbstring set in sql_queries
+    conn = psycopg2.connect(dbstring) # dbstring set in sql_queries.py
     cur = conn.cursor()
     #cur.execute("SET CLIENT_ENCODING TO 'utf8';")
     
@@ -51,15 +52,12 @@ def create_tables(cur, conn):
 def main():
     """
     - Drops (if exists) and Creates the sparkify database. 
-    
     - Establishes connection with the sparkify database and gets
     cursor to it.  
-    
     - Drops all the tables.  
-    
     - Creates all tables needed. 
-    
-    - Finally, closes the connection. 
+    - Closes the connection. 
+    - Create csv folder if doesn't already exist
     """
     cur, conn = create_database()
     
@@ -69,7 +67,10 @@ def main():
     
     cur.close()
     conn.close()
-
-
+    
+    if os.path.isdir('data/csv_files') == False:
+        os.mkdir('data/csv_files')
+        print("csv_files path created") 
+    
 if __name__ == "__main__":
     main()
