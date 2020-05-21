@@ -6,7 +6,7 @@ dbstring_default = "host=127.0.0.1 dbname=studentdb user=student password=studen
 
 # Set data paths for efficient loading using COPY
 #datapath = r'C:/Users/ericr/Google Drive/Online Courses/Udacity/Data Engineering/Part 1 - Data Modeling/data-modeling-postgres/data'
-datapath = "data" # for Udacity server
+datapath = "/home/workspace/data" # for Udacity server
 
 # DROP TABLES
 
