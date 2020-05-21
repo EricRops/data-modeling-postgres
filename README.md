@@ -15,7 +15,7 @@ Below is an example of what the data in 2018-11-12-events.json looks like:
 
 ### Postgres database schema
 The image below shows the relational properties of the tables. It is a typical STAR schema, with the fact table (songplays) and 4 dimension tables. It is optimized for analytic queries to answer any questions on user songplay behavior!
-<img src="images/ERD_rough.PNG" width="500" height="400">
+<img src="images/ERD_rough.PNG" width="600" height="500">
 
 ### Instructions
 1. At the top of **sql_queries.py**, ensure the dbstrings and datapaths are set to the proper Udacity paths (Should already be set correctly). Necessary because I ran this project on my own local Postgres server instead of the Udacity server.  
