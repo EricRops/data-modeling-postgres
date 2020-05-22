@@ -77,10 +77,11 @@ def insert_log_data(cur, conn, df, csvpath):
     cur.execute(time_table_insert, (copy_path,))
     conn.commit() 
 
-    # Insert user data using COPY                            
-    copy_path = datapath+'/csv_files/user_df.csv'
-    cur.execute(user_table_insert, (copy_path,))
-    conn.commit() 
+    # Insert user data - loop through all rows instead, based on reviewer comment                     
+    for idx, row in enumerate(user_df.itertuples(index=False)):
+        songplay_data = (row.userId, row.firstName, row.lastName, row.gender, row.level)        
+        cur.execute(user_table_insert, user_data)
+        conn.commit() 
         
     # INSERT SONGPLAY DATA: Loop through each row of the log files
     # NOTE: use enumerate as a loop counter for songplay_id
@@ -97,7 +98,7 @@ def insert_log_data(cur, conn, df, csvpath):
             songid, artistid = None, None
 
         # insert songplay record
-        songplay_data = (idx, row.ts, row.userId, row.level, songid, artistid, \
+        songplay_data = (row.ts, row.userId, row.level, songid, artistid, \
                                      row.sessionId, row.location, row.userAgent)   
         cur.execute(songplay_table_insert, songplay_data)    
         conn.commit()
