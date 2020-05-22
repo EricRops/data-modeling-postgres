@@ -80,13 +80,20 @@ songplay_table_insert = ("INSERT INTO songplays (songplay_id, start_time, user_i
 # Then, use INSERT to transfer all data from the temp table to the final table (songs, users, time, artists, or songplays)
 # Finally, ON CONFLICT (PRIMARY_KEY) DO NOTHING to ensure the transactions skip over duplicate primary keys!
 
+# For users table, need to first delete rows with duplicate user ids keeping the most recent row 
+# so the DO UPDATE to track changing user levels does not crash.
+# Note users is NOT sorted by user_id so we can preserve the latest level status
 user_table_insert = ("CREATE TEMP TABLE tmp_table ON COMMIT DROP \
                       AS \
                       SELECT * FROM users WITH NO DATA;" \
                      "COPY tmp_table FROM %s DELIMITERS ',' CSV HEADER;" \
+                     "DELETE FROM tmp_table T1 \
+                          USING tmp_table T2 \
+                          WHERE T1.ctid < T2.ctid \
+                          AND T1.user_id = T2.user_id;" \
                      "INSERT INTO users \
                      SELECT * FROM tmp_table \
-                     ON CONFLICT (user_id) DO NOTHING;")
+                     ON CONFLICT (user_id) DO UPDATE SET level = EXCLUDED.level;")
 
 song_table_insert = ("CREATE TEMP TABLE tmp_table ON COMMIT DROP \
                       AS \

@@ -21,13 +21,30 @@ The image below shows the relational properties of the tables. It is a typical S
 1. At the top of **sql_queries.py**, ensure the dbstrings and datapaths are set to the proper Udacity paths (Should already be set correctly). Necessary because I ran this project on my own local Postgres server instead of the Udacity server.  
 2. Look through **sql_queries.py** to understand what SQL queries are used throughout the Python scripts.  
 3. Run **create_tables.py** to create or reset the Postgres database, and create the tables to be filled by the ETL script
-4. Run **etl.py** to read and process the raw JSON files, and load the data into the proper Postgres tables  
+4. Run **etl.py** to read and process the raw JSON files, and load the data into the proper Postgres tables. Also, the sub function *quality_check_data* performs a simple quality check on the tables.
 5. Walk through **notebooks/analytic_bashboard.ipynb** to see some basic queries and findings of user preferences based on the data. 
 
 ### Extra work completed  
 - Used the COPY command instead of INSERT INTO to populate the Postgres tables with improved performance  
 - Added a *quality_check_data* function into **etl.py** to make sure the number of table rows in Postgres equals the number of unique IDs from the JSON data  
-- Included the **notebooks/analytic_bashboard.ipynb** notebook with some visualizations of some basic queries. See sample image below from a query returning the top 15 most popular artists from November 2018:  
+- Included the **notebooks/analytic_bashboard.ipynb** notebook with some visualizations of some basic queries. See sample query and resulting image below.
+
+### Sample data quality check for the users table
+- Total unique user ids in JSON files = 96
+- Total rows in the Postgres table = 96
+- If equal, check passed!
+- Else, reset table in Postgres
+
+### Sample SQL query for the top 15 artists of the Sparkify dataset
+```
+SELECT a.name AS artist_name, COUNT(*) as num_plays
+FROM songplays s
+JOIN artists a 
+ON s.artist_id = a.artist_id
+GROUP BY a.name
+ORDER BY num_plays DESC 
+LIMIT 15
+```
 <img src="images/top_artists.PNG">  
 
 ### Suggestions to improve project

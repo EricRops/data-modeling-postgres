@@ -54,6 +54,8 @@ def insert_log_data(cur, conn, df, csvpath):
     # convert timestamp column to datetime
     t = pd.to_datetime(df.ts, unit='ms') 
     df['ts'] = t
+    # Sort by start_time
+    df = df.sort_values('ts')
     
     # Create time DF from ALL log files
     time_data = list(zip(t, t.dt.hour, t.dt.day, t.dt.week, t.dt.month, t.dt.year, t.dt.weekday))
@@ -65,8 +67,6 @@ def insert_log_data(cur, conn, df, csvpath):
     # Create user DF from ALL log files
     user_df = df[['userId', 'firstName', 'lastName', 'gender', 'level']]
     user_df = user_df.astype({"userId": int})
-    # Sort by user_id
-    user_df = user_df.sort_values("userId")
     
     # Create CSVs so we can use COPY for better data loading performance
     time_df.to_csv((csvpath+'/time_df.csv'), index=False)
