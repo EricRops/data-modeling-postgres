@@ -21,10 +21,10 @@ It is optimized for analytic queries to answer any questions on user songplay be
 <img src="images/ERD_rough.PNG" width="600" height="500">
 
 ### Instructions
-1. At the top of **sql_queries.py**, ensure the dbstrings and datapaths are set to the proper Udacity paths (Should already be set correctly). Necessary because I ran this project on my own local Postgres server instead of the Udacity server.  
-2. Look through **sql_queries.py** to understand what SQL queries are used throughout the Python scripts.  
-3. Run **create_tables.py** to create or reset the Postgres database, and create the tables to be filled by the ETL script
-4. Run **etl.py** to read and process the raw JSON files, and load the data into the proper Postgres tables. Also, the sub function *quality_check_data* performs a simple quality check on the tables.
+1. At the top of **src/sql_queries.py**, ensure the dbstrings and datapaths are set to the proper Udacity paths (Should already be set correctly). Necessary because I ran this project on my own local Postgres server instead of the Udacity server.  
+2. Look through **src/sql_queries.py** to understand what SQL queries are used throughout the Python scripts.  
+3. Run **src/create_tables.py** to create or reset the Postgres database, and create the tables to be filled by the ETL script
+4. Run **src/etl.py** to read and process the raw JSON files, and load the data into the proper Postgres tables. Also, the sub function *quality_check_data* performs a simple quality check on the tables.
 5. Walk through **notebooks/analytic_bashboard.ipynb** to see some basic queries and findings of user preferences based on the data. 
 
 ### Extra work completed  
